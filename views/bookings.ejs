@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista rezerwacji</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Wszystkie rezerwacje</h1>
+        
+        <div class="filters">
+            <div>
+                <strong>Fryzjer:</strong>
+                <a href="/bookings" class="btn <%= selectedBarber === 'all' ? 'active' : '' %>">Wszyscy</a>
+                <% barbers.forEach(b => { %>
+                    <a href="/bookings?barber=<%= b %>" 
+                       class="btn <%= selectedBarber === b ? 'active' : '' %>">
+                        <%= b %>
+                    </a>
+                <% }) %>
+            </div>
+            
+            <div>
+                <strong>Sortuj według:</strong>
+                <a href="/bookings?<%= selectedBarber !== 'all' ? 'barber=' + selectedBarber + '&' : '' %>sort=date">Data</a> |
+                <a href="/bookings?<%= selectedBarber !== 'all' ? 'barber=' + selectedBarber + '&' : '' %>sort=hour">Godzina</a> |
+                <a href="/bookings?<%= selectedBarber !== 'all' ? 'barber=' + selectedBarber + '&' : '' %>sort=clientName">Klient</a> |
+                <a href="/bookings?<%= selectedBarber !== 'all' ? 'barber=' + selectedBarber + '&' : '' %>sort=barber">Fryzjer</a>
+            </div>
+        </div>
+        
+        <% if (bookings.length === 0) { %>
+            <p>Brak rezerwacji.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Godzina</th>
+                        <th>Fryzjer</th>
+                        <th>Klient</th>
+                        <th>Telefon</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bookings.forEach(booking => { %>
+                        <tr>
+                            <td><%= booking.date %></td>
+                            <td><%= booking.hour %></td>
+                            <td><strong><%= booking.barber %></strong></td>
+                            <td><%= booking.clientName %></td>
+                            <td><%= booking.phone %></td>
+                            <td>
+                                <a href="/booking/edit/<%= booking._id %>" class="btn">Edytuj</a>
+                                <a href="/booking/delete/<%= booking._id %>"
+                                onclick="return confirm('Usunąć rezerwację?')"
+                                class="delete-btn">Usuń</a>
+                            </td>
+
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+        
+        
+        <div class="actions">
+            <a href="/" class="btn">Strona główna</a>
+            <a href="/book" class="btn">Nowa rezerwacja</a>
+        </div>
+    </div>
+</body>
+</html>

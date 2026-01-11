@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacja</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rezerwacja terminu u fryzjera: <strong><%= barber %></strong></h1>
+        
+        <div class="barber-selector">
+            <strong>Zmień fryzjera:</strong>
+            <% barbers.forEach(b => { %>
+                <a href="/book?date=<%= date %>&barber=<%= b %>" 
+                   class="btn <%= b === barber ? 'active' : '' %>">
+                    <%= b %>
+                </a>
+            <% }) %>
+        </div>
+        
+        <form method="GET" action="/book" class="filter-form">
+            <label>Data: <input type="date" name="date" value="<%= date %>" required></label>
+            <input type="hidden" name="barber" value="<%= barber %>">
+            <button type="submit">Pokaż dostępne godziny</button>
+        </form>
+
+        <% if (availableHours.length > 0) { %>
+            <h2>Dostępne godziny dla <%= date %> (Fryzjer: <%= barber %>)</h2>
+            <form method="POST" action="/book">
+                <input type="hidden" name="date" value="<%= date %>">
+                <input type="hidden" name="barber" value="<%= barber %>">
+                
+                <label>Imię: <input type="text" name="clientName" required></label>
+                <label>Telefon: <input type="text" name="phone" required></label>
+                
+                <label>Godzina:
+                    <select name="hour" required>
+                        <% availableHours.forEach(hour => { %>
+                            <option value="<%= hour %>"><%= hour %></option>
+                        <% }) %>
+                    </select>
+                </label>
+                
+                <button type="submit">Zarezerwuj u <%= barber %></button>
+            </form>
+        <% } else { %>
+            <p class="warning">Brak dostępnych godzin w tym dniu dla fryzjera <%= barber %>.</p>
+            <p>Wybierz inny dzień lub fryzjera.</p>
+        <% } %>
+        
+        <div class="actions">
+            <a href="/" class="btn">Strona główna</a>
+            <a href="/bookings" class="btn">Zobacz rezerwacje</a>
+        </div>
+    </div>
+</body>
+</html>

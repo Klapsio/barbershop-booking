@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Barbershop Booking</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-cut"></i> System Rezerwacji Fryzjera</h1>
+        <h3><i class="fa fa-phone"></i> Kontakt: 501 821 473</h3>
+        <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 18px;">
+            Wybierz fryzjera i zarezerwuj termin wizyty
+        </p>
+        
+        <div class="barber-selector">
+            <h3><i class="fas fa-users"></i> Nasi fryzjerzy:</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+                <% barbers.forEach(barber => { %>
+                    <a href="/book?barber=<%= barber %>" class="btn barber-btn" style="min-width: 180px;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">
+                            <% if (barber === 'Jakub') { %>
+                                <i class="fas fa-male"></i>
+                            <% } else if (barber === 'Magda') { %>
+                                <i class="fas fa-female"></i>
+                            <% } else if (barber === 'Igor') { %>
+                                <i class="fas fa-user-ninja"></i>
+                            <% } else { %>
+                                <i class="fas fa-user-astronaut"></i>
+                            <% } %>
+                        </div>
+                        <strong><%= barber %></strong>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0;">
+            <p style="margin-bottom: 20px; color: #7f8c8d;">Lub przejdź do:</p>
+            <a href="/book" class="btn" style="background: linear-gradient(to right, #3498db, #2980b9); padding: 15px 40px; font-size: 18px;">
+                <i class="far fa-calendar-plus"></i> Nowa rezerwacja
+            </a>
+            <a href="/bookings" class="btn" style="background: linear-gradient(to right, #e67e22, #d35400); padding: 15px 40px; font-size: 18px;">
+                <i class="fas fa-list-alt"></i> Moje rezerwacje
+            </a>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-top: 30px; text-align: center;">
+            <h3><i class="fas fa-info-circle"></i> Jak to działa?</h3>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;">
+                <div style="flex: 1; min-width: 200px; padding: 15px;">
+                    <div style="font-size: 40px; color: #3498db; margin-bottom: 10px;">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h4>1. Wybierz fryzjera</h4>
+                </div>
+                <div style="flex: 1; min-width: 200px; padding: 15px;">
+                    <div style="font-size: 40px; color: #2ecc71; margin-bottom: 10px;">
+                        <i class="far fa-calendar"></i>
+                    </div>
+                    <h4>2. Wybierz datę</h4>
+                </div>
+                <div style="flex: 1; min-width: 200px; padding: 15px;">
+                    <div style="font-size: 40px; color: #9b59b6; margin-bottom: 10px;">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <h4>3. Wybierz godzinę</h4>
+                </div>
+                <div style="flex: 1; min-width: 200px; padding: 15px;">
+                    <div style="font-size: 40px; color: #e74c3c; margin-bottom: 10px;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>4. Potwierdź rezerwację</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

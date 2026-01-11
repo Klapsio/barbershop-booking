@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja rezerwacji</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Edytuj rezerwację</h1>
+
+    <form method="POST">
+        <label>Data:
+            <input type="date" name="date" value="<%= booking.date %>" required>
+        </label>
+
+        <label>Godzina:
+            <input type="text" name="hour" value="<%= booking.hour %>" required>
+        </label>
+
+        <label>Fryzjer:
+            <select name="barber">
+                <% barbers.forEach(b => { %>
+                    <option value="<%= b %>" <%= b === booking.barber ? 'selected' : '' %>>
+                        <%= b %>
+                    </option>
+                <% }) %>
+            </select>
+        </label>
+
+        <label>Klient:
+            <input type="text" name="clientName" value="<%= booking.clientName %>" required>
+        </label>
+
+        <label>Telefon:
+            <input type="text" name="phone" value="<%= booking.phone %>" required>
+        </label>
+
+        <button type="submit" class="btn">Zapisz</button>
+    </form>
+
+    <a href="/bookings" class="btn">Powrót</a>
+</div>
+</body>
+</html>
