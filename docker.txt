@@ -1,0 +1,5 @@
+docker run -d \
+  --name mongo-barbershop \
+  -p 27017:27017 \
+
+Aplikacja łączy się z bazą MongoDB na porcie 27017
